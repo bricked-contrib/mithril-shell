@@ -1,26 +1,37 @@
-import { Quicksettings } from './quicksettings/quicksettings.js';
-import { Bar } from './bar/bar.js';
-import Gdk from "gi://Gdk"
+const entry = `${App.configDir}/main.ts`;
+const dest = "/tmp/ags-bar";
 
-const scss = `${App.configDir}/style.scss`
-const css = `/tmp/__ags-style.css`
-
-Utils.exec(`sassc ${scss} ${css}`)
-
-/**
- * @callback forMonitorsCallback
- * @param {number} monitor
- */
-/** @param {forMonitorsCallback} widget */
-export function forMonitors(widget) {
-    const n = Gdk.Display.get_default()?.get_n_monitors() || 1
-    return Array.from({ length: n }, (_, i) => i).flatMap(widget)
+function mkdir(dir) {
+  Utils.subprocess(["mkdir", "-p", dir])
 }
 
-App.config({
-  style: css,
-  windows: [
-    ...forMonitors(Bar),
-    Quicksettings(),
-  ],
-})
+async function compileStyles(dest) {
+  const scss = `${App.configDir}/style.scss`;
+  const css = `${dest}/style.css`;
+
+  await Utils.execAsync(`sassc ${scss} ${css}`)
+}
+
+async function compileMain(dest) {
+  await Utils.execAsync([
+    "bun", "build", entry,
+    "--outfile", `${dest}/main.js`,
+    "--external", "resource://*",
+    "--external", "gi://*",
+    "--external", "file://*",
+  ]);
+}
+
+(async () => {
+  try {
+    // Ensure the destination directory exists.
+    mkdir(dest);
+    await compileStyles(dest);
+    await compileMain(dest);
+
+    (await import(`file://${dest}/main.js`)).main(dest);
+  } catch (err) {
+    console.error(err);
+    App.quit();
+  }
+})();

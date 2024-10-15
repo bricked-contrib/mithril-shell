@@ -27,6 +27,7 @@
             sassc
             typescript-language-server
             vscode-langservers-extracted
+            bun
           ];
         };
 
