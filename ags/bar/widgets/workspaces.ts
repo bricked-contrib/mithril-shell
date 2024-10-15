@@ -2,7 +2,6 @@ import { BarWidget } from "../bar-widget.js";
 
 const hyprland = await Service.import("hyprland");
 
-/** @param {Boolean} active */
 const workspaceIndicator = (active = false) => Widget.Box({
   className: "workspace-indicator" + (active ? " active" : ""),
 });

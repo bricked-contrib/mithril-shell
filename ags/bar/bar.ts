@@ -3,8 +3,7 @@ import { StatusIndicators } from "./widgets/status-indicators.js";
 import { Time } from "./widgets/time.js";
 import { Workspaces } from "./widgets/workspaces.js";
 
-/** @param {number} monitor */
-export const Bar = (monitor) => Widget.Window({
+export const Bar = (monitor: number) => Widget.Window({
   monitor,
   name: `bar${monitor}`,
   className: "bar",

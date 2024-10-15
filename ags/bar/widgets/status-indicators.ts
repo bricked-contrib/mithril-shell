@@ -1,3 +1,5 @@
+import { type Icon } from "lib/types";
+
 import { BarWidget } from "../bar-widget.js";
 
 const audio = await Service.import('audio');
@@ -5,7 +7,7 @@ const battery = await Service.import('battery')
 const bluetooth = await Service.import('bluetooth');
 const network = await Service.import('network');
 
-const StatusIndicator = (icon) => Widget.Icon({
+const StatusIndicator = (icon: Icon) => Widget.Icon({
   size: 17,
   className: "status-indicator",
   icon,
@@ -59,4 +61,4 @@ export const StatusIndicators = () => BarWidget({
     ],
   }),
   on_clicked: () => App.toggleWindow('quicksettings'),
-}); 
+});
