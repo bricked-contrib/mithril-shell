@@ -19,7 +19,7 @@ in
       '';
     };      
 
-    intergation = {
+    integrations = {
       hyprland.enable = mkOption {
         type = types.bool;
         default = false;
@@ -51,7 +51,7 @@ in
       };
     };
 
-    wayland.windowManager.hyprland = lib.mkIf cfg.intergation.hyprland.enable {
+    wayland.windowManager.hyprland = lib.mkIf cfg.integrations.hyprland.enable {
       settings = {
         exec-once = [
           "systemctl --user start ${service-name}"
