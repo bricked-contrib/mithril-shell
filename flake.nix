@@ -32,6 +32,14 @@
             vscode-langservers-extracted
             bun
           ];
+
+          shellHook = ''
+            # This assumes the only flake.nix file in the project is in the root directory.
+            if test -f flake.nix; then
+              # Link the generates ags types in order to get better LSP support.
+              ln -sf "$(dirname $(which ags))/../share/com.github.Aylur.ags/types" ags/
+            fi
+          '';
         };
       }
     );
