@@ -6,11 +6,15 @@ const workspaceIndicator = (active = false) => Widget.Box({
   className: "workspace-indicator" + (active ? " active" : ""),
 });
 
-export const Workspaces = () => BarWidget({
+export const Workspaces = (monitor: number) => BarWidget({
   child: Widget.Box({
     className: "workspaces",
     children: Utils.merge(
-      [hyprland.bind("workspaces"), hyprland.active.bind("workspace")],
+      [
+        hyprland.bind("workspaces"),
+        // TODO: this breaks when unplugging a monitor that is not the last monitor in the list.
+        hyprland.bind("monitors").as(monitors => monitors[monitor].activeWorkspace),
+      ],
       (workspaces, active) => {
         return workspaces
           .sort((a, b) => a.id - b.id)
@@ -18,9 +22,6 @@ export const Workspaces = () => BarWidget({
       },
     ),
   }),
-  on_primary_click: () => {
-    hyprland.messageAsync("dispatch overview:toggle");
-  },
   on_scroll_up: () => {
     hyprland.messageAsync("dispatch workspace +1");
   },

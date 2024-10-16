@@ -14,7 +14,7 @@ export const Bar = (monitor: number) => Widget.Window({
     start_widget: Widget.Box({
       hpack: "start",
       children: [
-        Workspaces(),
+        Workspaces(monitor),
       ],
     }),
     center_widget: Widget.Box({
