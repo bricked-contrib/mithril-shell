@@ -6,8 +6,8 @@
 }:
 let
   # Name that the systemd service for the bar will use.
-  service-name = "ags-bar";
-  cfg = config.services.ags-bar;
+  service-name = "mithril-shell";
+  cfg = config.services.mithril-shell;
 
   hexColorType = lib.mkOptionType {
     name = "hex-color";
@@ -24,12 +24,12 @@ let
     };
 in
 {
-  options.services.ags-bar = with lib; {
+  options.services.mithril-shell = with lib; {
     enable = mkOption {
       type = types.bool;
       default = false;
       description = ''
-        Whether to enable ags-bar. Does not automatically start the bar in your window manager.
+        Whether to enable mithril-shell. Does not automatically start the bar in your window manager.
       '';
     };
 
@@ -65,8 +65,8 @@ in
     # by your desktop environment.
     systemd.user.services.${service-name} = {
       Unit = {
-        Description = "Aylur's Gnome Shell";
-        Documentation = "https://aylur.github.io/ags-docs/";
+        Description = "Mithril Shell";
+        Documentation = "https://github.com/AndreasHGK/mithril-shell";
         PartOf = [ "graphical-session.target" ];
         After = [ "graphical-session-pre.target" ];
       };
