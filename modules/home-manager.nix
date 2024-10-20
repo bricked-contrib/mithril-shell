@@ -94,7 +94,7 @@ in
                 silent = stylixColors.base01;
               }
             else
-              cfg.colorscheme.colors;
+              cfg.theme.colors;
 
           ags-config = pkgs.stdenv.mkDerivation {
             name = "ags-config";
