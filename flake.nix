@@ -23,6 +23,10 @@
       {
         formatter = pkgs.nixfmt-rfc-style;
 
+        packages = import ./pkgs {
+          inherit pkgs;
+        };
+
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             ags
