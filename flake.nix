@@ -11,7 +11,9 @@
       flake-utils,
     }:
     {
-      homeModules.default = import ./modules/home-manager.nix;
+      homeManagerModules.default = import ./modules self;
+
+      lib = import ./lib self;
     }
     // flake-utils.lib.eachDefaultSystem (
       system:
