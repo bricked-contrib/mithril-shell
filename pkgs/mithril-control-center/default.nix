@@ -1,20 +1,11 @@
 {
-  pkgs,
-  gnome-control-center ? pkgs.gnome-control-center,
-  ...
+  gnome-control-center,
+  readPatches,
 }:
-let
-  lib = pkgs.lib;
-  patches = lib.pipe (builtins.readDir ./.) [
-    (lib.filterAttrs (_: type: type == "regular"))
-    (lib.filterAttrs (name: _: lib.hasSuffix ".patch" name))
-    (lib.mapAttrsToList (name: _: ./. + ("/" + name)))
-  ];
-in
 gnome-control-center.overrideAttrs (old: {
   pname = "mithril-control-center";
 
-  patches = old.patches ++ patches;
+  patches = old.patches ++ (readPatches ./.);
 
   postFixup = ''
     rm $out/share/applications/gnome-*-panel.desktop 

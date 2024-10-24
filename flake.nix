@@ -5,28 +5,28 @@
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       flake-utils,
     }:
     {
-      homeManagerModules.default = import ./modules self;
+      homeManagerModules.default = import ./modules inputs;
 
-      lib = import ./lib self;
+      lib = import ./lib inputs;
+
+      overlays.default = import ./pkgs inputs;
     }
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
+        pkgs = nixpkgs.legacyPackages.${system}.extend self.overlays.default;
       in
       {
         formatter = pkgs.nixfmt-rfc-style;
 
-        packages = import ./pkgs {
-          inherit pkgs;
+        packages = {
+          inherit (pkgs) mithril-control-center;
         };
 
         devShells.default = pkgs.mkShell {

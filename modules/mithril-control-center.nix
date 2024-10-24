@@ -1,10 +1,11 @@
-self: {
+inputs: {
   config,
   lib,
   pkgs,
   ...
 }:
 let
+  inherit (inputs) self;
   inherit (pkgs.hostPlatform) system;
 
   cfg = config.programs.mithril-control-center;
