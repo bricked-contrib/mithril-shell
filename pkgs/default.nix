@@ -4,4 +4,5 @@ final: prev: {
   mithril-control-center = final.callPackage ./mithril-control-center {
     inherit (inputs.self.lib) readPatches;
   };
+  mithril-shell = final.callPackage ./mithril-shell { };
 }

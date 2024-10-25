@@ -26,18 +26,18 @@
         formatter = pkgs.nixfmt-rfc-style;
 
         packages = {
-          inherit (pkgs) mithril-control-center;
+          inherit (pkgs) mithril-control-center mithril-shell;
         };
 
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            ags
-            sass
-            sassc
-            typescript-language-server
-            vscode-langservers-extracted
-            bun
-          ];
+          packages =
+            with pkgs;
+            pkgs.mithril-shell.passthru.packages
+            ++ [
+              sass
+              typescript-language-server
+              vscode-langservers-extracted
+            ];
 
           shellHook = ''
             # This assumes the only flake.nix file in the project is in the root directory.
