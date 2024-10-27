@@ -42,7 +42,7 @@
 }
 
 .bar {
-  background-color: $background;
+  background-color: $background0;
   font-weight: bold;
 
   .bar-widget {
@@ -60,11 +60,11 @@
     padding-bottom: 0em;
 
     &.active {
-      box-shadow: inset 0 0 0 100px scale-color($hover, $lightness: -10%);
+      box-shadow: inset 0 0 0 100px scale-color($surface0, $lightness: -10%);
     }
 
     &:hover {
-      box-shadow: inset 0 0 0 100px $hover;
+      box-shadow: inset 0 0 0 100px $surface0;
     }
 
     .workspaces {
@@ -82,7 +82,7 @@
         margin-bottom: -0.20em;
         margin-top: -0.20em;
 
-        background-color: scale-color($silent, $lightness: 20%);
+        background-color: mix($background0, $text, 50%);
 
         &.active {
           padding: 0.35em;
@@ -114,11 +114,11 @@
 
 // Common styles for a popup window.
 .popup {
-  background-color: $background;
+  background-color: $background1;
   border-radius: 1.75em;
   margin: 0.25em;
   box-shadow: 0 0.1em 0.25em rgba(20, 20, 20, 0.25);
-  border: 1px solid scale-color($background, $lightness: 7.5%);
+  border: 1px solid scale-color($background1, $lightness: 7.5%);
 }
 
 window.darkened {
@@ -157,19 +157,19 @@ window.darkened {
     .yes-button {
       padding: 0.5em;
 
-      background-color: $hover;
+      background-color: $surface0;
 
       &:hover {
-        background-color: hover-color($hover);
+        background-color: hover-color($surface0);
       }
 
       &.emphasize {
-        background-color: scale-color($hover, $lightness: 10%);
-        border: 2px solid scale-color($hover, $lightness: 20%);
+        background-color: scale-color($surface0, $lightness: 10%);
+        border: 2px solid scale-color($surface0, $lightness: 20%);
 
         &:hover {
-          background-color: scale-color($hover, $lightness: 15%);
-          border: 2px solid scale-color($hover, $lightness: 25%);
+          background-color: scale-color($surface0, $lightness: 15%);
+          border: 2px solid scale-color($surface0, $lightness: 25%);
         }
       }
     }
@@ -185,7 +185,6 @@ window.darkened {
 }
 
 .quicksettings {
-  background-color: $background;
   @include space-between-y(1.5em);
 
   padding: 1em;
@@ -211,18 +210,18 @@ window.darkened {
   .button {
     @include rounded-full;
 
-    background-color: $hover;
+    background-color: $surface0;
     padding: 0.625em;
 
     &:hover {
-      background-color: hover-color($hover);
+      background-color: hover-color($surface0);
     }
 
     &:active {
       background-color: $primary;
 
       * {
-        color: $background;
+        color: $background1;
       }
     }
   }
@@ -246,7 +245,7 @@ window.darkened {
       trough {
         min-height: $width;
         min-width: $width;
-        background-color: $hover;
+        background-color: $surface0;
 
         highlight,
         progress {
@@ -276,11 +275,11 @@ window.darkened {
         border-bottom-right-radius: 9999px;
       }
 
-      background-color: $hover;
+      background-color: $surface0;
       min-height: 3em;
 
       &:hover {
-        background-color: hover-color($hover);
+        background-color: hover-color($surface0);
       }
 
       &:checked {
@@ -291,7 +290,7 @@ window.darkened {
         }
 
         * {
-          color: $background;
+          color: $background1;
         }
       }
 
@@ -319,11 +318,11 @@ window.darkened {
     .chevron {
       padding-right: 0.75em;
       padding-left: 0.5em;
-      background-color: mix(white, $hover, 5%);
+      background-color: mix(white, $surface0, 5%);
       border-top-right-radius: 9999px;
       border-bottom-right-radius: 9999px;
 
-      border-left-color: $background;
+      border-left-color: $background1;
       border-left-width: 1px;
       border-left-style: solid;
     }
@@ -337,7 +336,7 @@ window.darkened {
       }
 
       * {
-        color: $background;
+        color: $background1;
       }
     }
   }

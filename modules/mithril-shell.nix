@@ -55,11 +55,11 @@ in
     };
 
     theme.colors = {
-      primary = mkHexColorOption "#cba6f7";
+      primary = mkHexColorOption "#94e2d5";
       text = mkHexColorOption "#cdd6f4";
-      background = mkHexColorOption "#181825";
-      hover = mkHexColorOption "#313244";
-      silent = mkHexColorOption "#585b70";
+      background0 = mkHexColorOption "#181825";
+      background1 = mkHexColorOption "#1e1e2e";
+      surface0 = mkHexColorOption "#313244";
     };
 
     integrations = {
@@ -111,9 +111,9 @@ in
       generateThemeScss = colors: ''
         \$primary: #${colors.primary};
         \$text: #${colors.text};
-        \$background: #${colors.background};
-        \$hover: #${colors.hover};
-        \$silent: #${colors.silent};
+        \$background0: #${colors.background0};
+        \$background1: #${colors.background1};
+        \$surface0: #${colors.surface0};
       '';
 
       colors =
@@ -122,11 +122,11 @@ in
             stylixColors = config.lib.stylix.colors;
           in
           {
-            primary = stylixColors.base07;
+            primary = stylixColors.base0C;
             text = stylixColors.base05;
-            background = stylixColors.base00;
-            hover = stylixColors.base02;
-            silent = stylixColors.base01;
+            background0 = stylixColors.base00;
+            background1 = stylixColors.base01;
+            surface0 = stylixColors.base02;
           }
         else
           cfg.theme.colors;
