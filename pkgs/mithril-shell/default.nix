@@ -1,8 +1,14 @@
 {
   ags,
   bun,
+  gammastep,
+  grim,
+  libnotify,
+  mithril-control-center,
   sassc,
+  swaynotificationcenter,
   writeShellApplication,
+  wl-clipboard,
 
   agsConfig ? ../../ags,
 }:
@@ -12,7 +18,13 @@ writeShellApplication rec {
   runtimeInputs = [
     ags
     bun
+    gammastep
+    grim
+    libnotify
+    mithril-control-center
     sassc
+    swaynotificationcenter
+    wl-clipboard
   ];
 
   text = ''
