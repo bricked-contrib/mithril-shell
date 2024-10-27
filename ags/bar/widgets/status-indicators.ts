@@ -47,6 +47,11 @@ export const StatusIndicators = () => {
         }),
 
         StatusIndicator({
+          icon: "network-vpn-symbolic",
+          visible: network.vpn.bind("activated_connections").as(cons => cons.length > 0),
+        }),
+
+        StatusIndicator({
           icon: "bluetooth-active-symbolic",
           visible: bluetooth.bind("connected_devices").as(devices => devices.length > 0),
         }),
