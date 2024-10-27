@@ -44,6 +44,7 @@ export const StatusIndicators = () => {
               }
             }
           ),
+          visible: network.bind("primary").as(primary => primary !== null),
         }),
 
         StatusIndicator({
