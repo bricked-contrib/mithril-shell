@@ -60,13 +60,23 @@ in
         '';
       };
 
-      bluetooth.enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          Whether to enable gnome-settings-daemon's rfkill service, allowing the bluetooth panel to
-          be used.
-        '';
+      bluetooth = {
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            Whether to enable gnome-settings-daemon's rfkill service, allowing the bluetooth panel to
+            be used.
+          '';
+        };
+
+        package = mkOption {
+          type = types.package;
+          default = inputs.nixpkgs.legacyPackages.${system}.gnome-settings-daemon;
+          description = ''
+            Where to find the `libexec/gsd-rfkill` binary.
+          '';
+        };
       };
     };
   };
@@ -88,7 +98,7 @@ in
       };
 
       services.gsd-rfkill = lib.mkIf cfg.compatibility.bluetooth.enable
-        (mkService "${pkgs.gnome-settings-daemon}/libexec/gsd-rfkill");
+        (mkService "${cfg.compatibility.bluetooth.package}/libexec/gsd-rfkill");
     };
   };
 }
