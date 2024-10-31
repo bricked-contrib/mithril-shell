@@ -134,7 +134,7 @@ in
           else
             cfg.theme.colors;
 
-        agsConfig = pkgs.stdenv.mkDerivation {
+        agsConfig = pkgs.stdenvNoCC.mkDerivation {
           name = "ags-config";
           src = ../ags;
           allowSubstitutes = false;
