@@ -41,7 +41,7 @@ in
     package = mkOption {
       type = types.package;
       default = self.packages.${system}.mithril-shell;
-      defaultText = "inputs.mithril-shell.packages.\${system}.mithril-shell";
+      defaultText = lib.literalExpression "inputs.mithril-shell.packages.\${system}.mithril-shell";
       description = ''
         The mithril-shell package to use.
       '';
@@ -77,9 +77,7 @@ in
       lockCommand = mkOption {
         type = types.nullOr types.str;
         default = null;
-        example = ''
-          ''${pkgs.hyprlock}/bin/hyprlock --immediate
-        '';
+        example = lib.literalExpression "\${pkgs.hyprlock}/bin/hyprlock --immediate";
         description = ''
           The command used to lock the screen. Set to null to disable.
         '';
