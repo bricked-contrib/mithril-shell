@@ -64,6 +64,28 @@ in
       surface0 = mkHexColorOption "#313244";
     };
 
+    settings = {
+      minWorkspaces = mkOption {
+        type = types.int;
+        default = 3;
+        example = 10;
+        description = ''
+          The minimum amount of workspaces to show regardless of if they are empty or not.
+        '';
+      };
+
+      lockCommand = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        example = ''
+          ''${pkgs.hyprlock}/bin/hyprlock --immediate
+        '';
+        description = ''
+          The command used to lock the screen. Set to null to disable.
+        '';
+      };
+    };
+
     integrations = {
       hyprland.enable = mkOption {
         type = types.bool;
@@ -107,6 +129,10 @@ in
           "systemctl --user start ${service-name}"
         ];
       };
+    };
+
+    xdg.configFile = {
+      "mithril-shell/settings.json".text = builtins.toJSON cfg.settings;
     };
 
     services.mithril-shell.finalPackage =

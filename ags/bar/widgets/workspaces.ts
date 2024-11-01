@@ -1,3 +1,4 @@
+import { config } from "lib/settings.js";
 import { BarWidget } from "../bar-widget.js";
 
 const hyprland = await Service.import("hyprland");
@@ -22,9 +23,10 @@ export const Workspaces = (monitor: number) =>
         (workspaces, active) => {
           // Workspaces start with ID 1. It is limited to 25 to keep it reasonable should hyprland
           // return anything unexpected.
-          const workspaces_num = Math.min(
-            25,
-            Math.max(...workspaces.map((workspace) => workspace.id)),
+          const workspaces_num = Math.max(
+            // Always prioritize the value from the config as a minimum amount.
+            config.minWorkspaces,
+            Math.min(25, Math.max(...workspaces.map((workspace) => workspace.id))),
           );
           const children = new Array(workspaces_num);
 

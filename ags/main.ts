@@ -2,6 +2,7 @@ import Gdk from "gi://Gdk";
 import type Gtk from "gi://Gtk?version=3.0";
 
 import { Bar } from "./bar/bar.js";
+import { readConfig } from "./lib/settings.js";
 import { Quicksettings } from "./quicksettings/quicksettings.js";
 
 function forMonitors(widget: (monitor: number) => Gtk.Window) {
@@ -10,6 +11,7 @@ function forMonitors(widget: (monitor: number) => Gtk.Window) {
 }
 
 export function main(dest: string): void {
+  readConfig();
   App.config({
     style: `${dest}/style.css`,
     windows: [...forMonitors(Bar), Quicksettings()],
