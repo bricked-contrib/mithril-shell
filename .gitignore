@@ -1,6 +1,7 @@
 .direnv
 ags/node_modules
 ags/types
+ags/yarn.lock
 docs/.vitepress/.temp
 docs/.vitepress/cache
 docs/.vitepress/dist
