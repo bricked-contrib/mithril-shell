@@ -15,5 +15,6 @@ export function main(dest: string): void {
   App.config({
     style: `${dest}/style.css`,
     windows: [...forMonitors(Bar), Quicksettings()],
+    maxStreamVolume: 1.1,
   });
 }
