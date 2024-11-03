@@ -82,6 +82,15 @@ in
         };
       };
 
+      lockCommand = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        example = lib.literalExpression "\${pkgs.hyprlock}/bin/hyprlock --immediate";
+        description = ''
+          The command used to lock the screen. Set to null to disable.
+        '';
+      };
+
       minWorkspaces = mkOption {
         type = types.int;
         default = 3;
@@ -91,13 +100,15 @@ in
         '';
       };
 
-      lockCommand = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        example = lib.literalExpression "\${pkgs.hyprlock}/bin/hyprlock --immediate";
-        description = ''
-          The command used to lock the screen. Set to null to disable.
-        '';
+      popups = {
+        volumePopup.enable = mkOption {
+          type = types.bool;
+          default = true;
+          example = true;
+          description = ''
+            When true, shows a small indicator popup whenever the default speaker volume changes.
+          '';
+        };
       };
     };
 
