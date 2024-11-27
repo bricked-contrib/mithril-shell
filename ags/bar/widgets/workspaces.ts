@@ -12,6 +12,9 @@ const WorkspaceIndicator = (active: Binding<any, any, boolean>) =>
     visible: true,
   });
 
+// Visual limiter for the maximum amount of workspaces to display on the bar.
+const maxWorkspaces = 25;
+
 export const Workspaces = (monitor: number) =>
   BarWidget({
     child: Widget.CenterBox({
@@ -24,7 +27,10 @@ export const Workspaces = (monitor: number) =>
             return Math.max(
               // Always prioritize the value from the config as a minimum amount.
               config.minWorkspaces,
-              Math.min(25, Math.max(...hyprland.workspaces.map((workspace) => workspace.id))),
+              Math.min(
+                maxWorkspaces,
+                Math.max(...hyprland.workspaces.map((workspace) => workspace.id)),
+              ),
             );
           };
 
@@ -116,6 +122,13 @@ export const Workspaces = (monitor: number) =>
       }),
     }),
     on_scroll_up: () => {
+      if (
+        hyprland.getMonitor(monitor) &&
+        // @ts-ignore: Object is possibly 'null'.
+        hyprland.getMonitor(monitor).activeWorkspace.id >= maxWorkspaces
+      ) {
+        return;
+      }
       hyprland.messageAsync("dispatch workspace +1");
     },
     on_scroll_down: () => {
