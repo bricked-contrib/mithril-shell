@@ -25,6 +25,8 @@ center.
 This is temporary behaviour until a native notification center is implemented
 ([#8](https://github.com/AndreasHGK/mithril-shell/issues/8)).
 
+To correctly display the battery percentage the upower package is needed.
+
 If your home-manager setup uses [stylix](https://github.com/danth/stylix), integration with it is
 automatically enabled.
 This behaviour can be disabled.
