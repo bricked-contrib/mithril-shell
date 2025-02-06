@@ -91,6 +91,14 @@ in
             percentage is never shown if no battery is detected.
           '';
         };
+        workspacesIndicator.reverseScrollDirection = mkOption {
+          type = types.bool;
+          default = false;
+          description = ''
+            Reverse the scroll direction of the workspaces indicator, for all you natural
+            scrollling users.
+          '';
+        };
       };
 
       lockCommand = mkOption {

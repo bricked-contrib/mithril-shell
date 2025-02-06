@@ -122,16 +122,39 @@ export const Workspaces = (monitor: number) =>
       }),
     }),
     on_scroll_up: () => {
-      if (
-        hyprland.getMonitor(monitor) &&
-        // @ts-ignore: Object is possibly 'null'.
-        hyprland.getMonitor(monitor).activeWorkspace.id >= maxWorkspaces
-      ) {
-        return;
+      const reverse = config.bar?.modules?.workspaces?.reverseScrollDirection ?? false;
+
+      if (reverse) {
+        // Reverse behavior: scroll up = workspace -1
+        hyprland.messageAsync("dispatch workspace -1");
+      } else {
+        // Original behavior: scroll up = workspace +1
+        if (
+          hyprland.getMonitor(monitor) &&
+          // @ts-ignore: Object is possibly 'null'.
+          hyprland.getMonitor(monitor).activeWorkspace.id >= maxWorkspaces
+        ) {
+          return;
+        }
+        hyprland.messageAsync("dispatch workspace +1");
       }
-      hyprland.messageAsync("dispatch workspace +1");
     },
     on_scroll_down: () => {
-      hyprland.messageAsync("dispatch workspace -1");
+      const reverse = config.bar?.modules?.workspaces?.reverseScrollDirection ?? false;
+
+      if (reverse) {
+        // Reverse behavior: scroll down = workspace +1 (with limit check)
+        if (
+          hyprland.getMonitor(monitor) &&
+          // @ts-ignore: Object is possibly 'null'.
+          hyprland.getMonitor(monitor).activeWorkspace.id >= maxWorkspaces
+        ) {
+          return;
+        }
+        hyprland.messageAsync("dispatch workspace +1");
+      } else {
+        // Original behavior: scroll down = workspace -1
+        hyprland.messageAsync("dispatch workspace -1");
+      }
     },
   });
