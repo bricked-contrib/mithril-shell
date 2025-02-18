@@ -1,5 +1,6 @@
 {
   ags,
+  ags_1 ? ags,
   bun,
   gammastep,
   grim,
@@ -16,7 +17,7 @@ writeShellApplication rec {
   name = "mithril-shell";
 
   runtimeInputs = [
-    ags
+    ags_1
     bun
     gammastep
     grim
