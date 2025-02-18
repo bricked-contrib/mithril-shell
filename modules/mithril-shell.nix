@@ -73,7 +73,7 @@ in
           ];
           default = "smooth";
           example = "simple";
-          description = lib.mdDoc ''
+          description = ''
             The animation to display when changing the active workspace on the current monitor.
             - **simple:** only animate the old and new active workspace indicators.
             - **smooth:** run through all intermediate workspace indicators until reaching the new
