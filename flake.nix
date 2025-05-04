@@ -31,7 +31,7 @@
         pkgs = nixpkgs.legacyPackages.${system}.extend self.overlays.default;
       in
       {
-        formatter = pkgs.nixfmt-rfc-style;
+        formatter = pkgs.nixfmt-tree;
 
         packages = {
           inherit (pkgs) mithril-control-center mithril-shell;
@@ -76,7 +76,7 @@
               pkgs.nixfmt-rfc-style
             ];
             text = ''
-              nixfmt -c .
+              nixfmt -c **/*.nix
             '';
           };
         };
