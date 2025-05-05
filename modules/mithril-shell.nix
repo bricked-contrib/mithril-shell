@@ -171,7 +171,7 @@ in
     wayland.windowManager.hyprland = lib.mkIf cfg.integrations.hyprland.enable {
       settings = {
         exec-once = [
-          "systemctl --user start ${service-name}"
+          "systemctl --user restart ${service-name}"
         ];
       };
     };
