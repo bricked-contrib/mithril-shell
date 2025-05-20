@@ -1,6 +1,5 @@
 {
-  ags,
-  ags_1 ? ags,
+  ags_1,
   bun,
   gammastep,
   grim,
