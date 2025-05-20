@@ -1,5 +1,5 @@
 diff --git a/panels/applications/meson.build b/panels/applications/meson.build
-index e1bfb7920..befbf08e8 100644
+index b6ff4a0e7..fcc4e626f 100644
 --- a/panels/applications/meson.build
 +++ b/panels/applications/meson.build
 @@ -6,7 +6,7 @@ i18n.merge_file(
@@ -12,7 +12,7 @@ index e1bfb7920..befbf08e8 100644
  )
  
 diff --git a/panels/background/meson.build b/panels/background/meson.build
-index 6ced050f9..58a811b95 100644
+index 8f9cbecdf..8d974162c 100644
 --- a/panels/background/meson.build
 +++ b/panels/background/meson.build
 @@ -6,7 +6,7 @@ i18n.merge_file(
@@ -38,7 +38,7 @@ index 52198ec59..c3132ccea 100644
  )
  
 diff --git a/panels/display/meson.build b/panels/display/meson.build
-index 895f73bf3..a41b3bdec 100644
+index c3dd03212..9d7ce2abd 100644
 --- a/panels/display/meson.build
 +++ b/panels/display/meson.build
 @@ -6,7 +6,7 @@ i18n.merge_file(
@@ -51,10 +51,10 @@ index 895f73bf3..a41b3bdec 100644
  )
  
 diff --git a/panels/keyboard/meson.build b/panels/keyboard/meson.build
-index 5b6000bbd..b332b9ec8 100644
+index cd1b54e8e..910fff4d5 100644
 --- a/panels/keyboard/meson.build
 +++ b/panels/keyboard/meson.build
-@@ -6,7 +6,7 @@ i18n.merge_file(
+@@ -7,7 +7,7 @@ i18n.merge_file(
    input: desktop + '.in',
    output: desktop,
    po_dir: po_dir,
@@ -90,7 +90,7 @@ index 66680ef32..eb30d1bb2 100644
  )
  
 diff --git a/panels/notifications/meson.build b/panels/notifications/meson.build
-index 625c1d32f..9535cab92 100644
+index c42decc33..8d1275e25 100644
 --- a/panels/notifications/meson.build
 +++ b/panels/notifications/meson.build
 @@ -6,7 +6,7 @@ i18n.merge_file(
@@ -116,7 +116,7 @@ index 679566069..23943bf1b 100644
  )
  
 diff --git a/panels/privacy/meson.build b/panels/privacy/meson.build
-index b10c1e90f..c766335af 100644
+index 3afd326be..b9ddb2df2 100644
 --- a/panels/privacy/meson.build
 +++ b/panels/privacy/meson.build
 @@ -6,7 +6,7 @@ i18n.merge_file(
@@ -129,7 +129,7 @@ index b10c1e90f..c766335af 100644
  )
  
 diff --git a/panels/search/meson.build b/panels/search/meson.build
-index 5827d06bc..e24e68ce3 100644
+index df1498e5b..b09e03878 100644
 --- a/panels/search/meson.build
 +++ b/panels/search/meson.build
 @@ -6,7 +6,7 @@ i18n.merge_file(
@@ -155,7 +155,7 @@ index bab2588f0..dd6859eca 100644
  )
  
 diff --git a/panels/system/about/meson.build b/panels/system/about/meson.build
-index b1e37ae56..dfc92d3d3 100644
+index 3317e401b..5eb63fe38 100644
 --- a/panels/system/about/meson.build
 +++ b/panels/system/about/meson.build
 @@ -4,7 +4,7 @@ i18n.merge_file(
@@ -168,7 +168,7 @@ index b1e37ae56..dfc92d3d3 100644
  )
  
 diff --git a/panels/system/datetime/meson.build b/panels/system/datetime/meson.build
-index ab27d4a5f..e3c09b36d 100644
+index cd940851e..e3666be47 100644
 --- a/panels/system/datetime/meson.build
 +++ b/panels/system/datetime/meson.build
 @@ -4,7 +4,7 @@ i18n.merge_file(
@@ -181,7 +181,7 @@ index ab27d4a5f..e3c09b36d 100644
  )
  
 diff --git a/panels/system/meson.build b/panels/system/meson.build
-index 4fee82210..39bb136f3 100644
+index a9ac171e2..58955ad68 100644
 --- a/panels/system/meson.build
 +++ b/panels/system/meson.build
 @@ -6,7 +6,7 @@ i18n.merge_file(
@@ -194,10 +194,10 @@ index 4fee82210..39bb136f3 100644
  )
  
 diff --git a/panels/system/region/meson.build b/panels/system/region/meson.build
-index c12b3889f..0545be15d 100644
+index d0ec6ccf6..4690a52f6 100644
 --- a/panels/system/region/meson.build
 +++ b/panels/system/region/meson.build
-@@ -4,7 +4,7 @@ i18n.merge_file(
+@@ -4,6 +4,7 @@ i18n.merge_file(
    input: desktop + '.in',
    output: desktop,
    po_dir: po_dir,
@@ -205,9 +205,9 @@ index c12b3889f..0545be15d 100644
 +  install: false,
    install_dir: control_center_desktopdir
  )
- 
++
 diff --git a/panels/system/users/meson.build b/panels/system/users/meson.build
-index 9d493b1bc..b8bf82792 100644
+index 5fda2edda..66198a4d5 100644
 --- a/panels/system/users/meson.build
 +++ b/panels/system/users/meson.build
 @@ -4,7 +4,7 @@ i18n.merge_file(
@@ -220,7 +220,7 @@ index 9d493b1bc..b8bf82792 100644
  )
  
 diff --git a/panels/universal-access/meson.build b/panels/universal-access/meson.build
-index b9655c545..f0851171d 100644
+index 121f05915..efdf0802b 100644
 --- a/panels/universal-access/meson.build
 +++ b/panels/universal-access/meson.build
 @@ -6,7 +6,7 @@ i18n.merge_file(
@@ -233,10 +233,10 @@ index b9655c545..f0851171d 100644
  )
  
 diff --git a/panels/wacom/meson.build b/panels/wacom/meson.build
-index 139385433..5e400e443 100644
+index 3424eb70a..1dd6324f1 100644
 --- a/panels/wacom/meson.build
 +++ b/panels/wacom/meson.build
-@@ -28,7 +28,7 @@ i18n.merge_file(
+@@ -27,7 +27,7 @@ i18n.merge_file(
          input : desktop + '.in',
         output : desktop,
         po_dir : po_dir,
@@ -246,19 +246,16 @@ index 139385433..5e400e443 100644
  )
  
 diff --git a/shell/cc-panel-list.c b/shell/cc-panel-list.c
-index 1b3b8f94b..027edc3e9 100644
+index c3390546e..80bf3ea92 100644
 --- a/shell/cc-panel-list.c
 +++ b/shell/cc-panel-list.c
-@@ -368,34 +368,9 @@ static const gchar * const panel_order[] = {
- 
-   "separator",
- 
--  "display",
+@@ -375,32 +375,8 @@ static const gchar * const panel_order[] = {
+   "display",
    "sound",
    "power",
 -  "multitasking",
 -  "background",
--
+ 
 -  "separator",
 -
 -  "applications",
@@ -266,6 +263,7 @@ index 1b3b8f94b..027edc3e9 100644
 -  "search",
 -  "online-accounts",
 -  "sharing",
+-  "wellbeing",
 -
 -  "separator",
 -
@@ -285,10 +283,10 @@ index 1b3b8f94b..027edc3e9 100644
  
  static guint
 diff --git a/shell/cc-panel-loader.c b/shell/cc-panel-loader.c
-index 980faecbc..0e3ca651f 100644
+index 28a1671d9..69813207e 100644
 --- a/shell/cc-panel-loader.c
 +++ b/shell/cc-panel-loader.c
-@@ -85,33 +85,16 @@ extern void cc_wwan_panel_static_init_func (void);
+@@ -86,34 +86,16 @@ extern void cc_wwan_panel_static_init_func (void);
  
  static CcPanelLoaderVtable default_panels[] =
  {
@@ -319,6 +317,7 @@ index 980faecbc..0e3ca651f 100644
 -#ifdef BUILD_WACOM
 -  PANEL_TYPE("wacom",            cc_wacom_panel_get_type,                cc_wacom_panel_static_init_func),
 -#endif
+-  PANEL_TYPE("wellbeing",        cc_wellbeing_panel_get_type,            NULL),
  #ifdef BUILD_WWAN
    PANEL_TYPE("wwan",             cc_wwan_panel_get_type,                 cc_wwan_panel_static_init_func),
  #endif
