@@ -7,6 +7,7 @@ import { Toggles } from "./toggles";
 
 const battery = await Service.import("battery");
 const hyprland = await Service.import("hyprland");
+const powerMenuVisible = Variable(false);
 
 /** Constructor for the top buttons in the quicksettings menu. */
 const Button = (props: {
@@ -96,19 +97,7 @@ export const Quicksettings = () => {
     Button({
       icon: "system-shutdown-symbolic",
       async onClick() {
-        App.closeWindow("quicksettings");
-
-        const shutdown = await showModal({
-          title: "Power Off",
-          description: "Are you sure you want to power off the computer?",
-          noOption: "Cancel",
-          yesOption: "Power Off",
-          emphasize: "no",
-        });
-
-        if (shutdown) {
-          await Utils.execAsync("shutdown now");
-        }
+        powerMenuVisible.value = !powerMenuVisible.value;
       },
     }),
   ];
@@ -138,10 +127,111 @@ export const Quicksettings = () => {
           }),
         }),
 
+        PowerMenu(),
+
         Sliders(),
 
         Toggles(),
       ],
     }),
+    setup(self) {
+      self.hook(
+        App,
+        () => {
+          powerMenuVisible.value = false;
+        },
+        "window-toggled",
+      );
+    },
+  });
+};
+
+const PowerMenu = () => {
+  return Widget.Box({
+    className: "power-menu",
+    visible: powerMenuVisible.bind(),
+    hexpand: true,
+    vexpand: false,
+    vertical: true,
+    children: [
+      Widget.Button({
+        className: "entry",
+        hexpand: true,
+        child: Widget.Box({
+          children: [
+            Widget.Label({
+              label: "Restart...",
+            }),
+          ],
+        }),
+        async onClicked() {
+          App.closeWindow("quicksettings");
+
+          const shutdown = await showModal({
+            title: "Restart",
+            description: "Are you sure you want to restart the computer?",
+            noOption: "Cancel",
+            yesOption: "Restart",
+            emphasize: "no",
+          });
+
+          if (shutdown) {
+            await Utils.execAsync("reboot");
+          }
+        },
+      }),
+      Widget.Button({
+        className: "entry",
+        hexpand: true,
+        child: Widget.Box({
+          children: [
+            Widget.Label({
+              label: "Power Off...",
+            }),
+          ],
+        }),
+        async onClicked() {
+          App.closeWindow("quicksettings");
+
+          const shutdown = await showModal({
+            title: "Power Off",
+            description: "Are you sure you want to power off the computer?",
+            noOption: "Cancel",
+            yesOption: "Power Off",
+            emphasize: "no",
+          });
+
+          if (shutdown) {
+            await Utils.execAsync("shutdown now");
+          }
+        },
+      }),
+      Widget.Button({
+        className: "entry",
+        hexpand: true,
+        child: Widget.Box({
+          children: [
+            Widget.Label({
+              label: "Log Out...",
+            }),
+          ],
+        }),
+        async onClicked() {
+          App.closeWindow("quicksettings");
+
+          const shutdown = await showModal({
+            title: "Log Out",
+            description: "Are you sure you want log out of this session?",
+            noOption: "Cancel",
+            yesOption: "Log Out",
+            emphasize: "no",
+          });
+
+          if (shutdown) {
+            await Utils.execAsync("uwsm stop");
+          }
+        },
+      }),
+    ],
   });
 };
