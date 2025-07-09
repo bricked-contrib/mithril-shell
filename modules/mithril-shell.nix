@@ -23,10 +23,18 @@ let
     default:
     lib.mkOption {
       type = lib.types.coercedTo lib.types.str (lib.removePrefix "#") hexColorType;
-      inherit default;
-      example = default;
+      defaultText = "${defaultColors.${default}} or ${default} if 'integrations.stylix' is enabled";
+      example = defaultColors.${default};
       description = "An individual colour of the mithril-shell theme.";
     };
+
+  defaultColors = {
+    base0C = "#94e2d5";
+    base05 = "#cdd6f4";
+    base00 = "#181825";
+    base01 = "#1e1e2e";
+    base02 = "#313244";
+  };
 in
 {
   options.services.mithril-shell = with lib; {
@@ -57,11 +65,11 @@ in
     };
 
     theme.colors = {
-      primary = mkHexColorOption "#94e2d5";
-      text = mkHexColorOption "#cdd6f4";
-      background0 = mkHexColorOption "#181825";
-      background1 = mkHexColorOption "#1e1e2e";
-      surface0 = mkHexColorOption "#313244";
+      primary = mkHexColorOption "base0C";
+      text = mkHexColorOption "base05";
+      background0 = mkHexColorOption "base00";
+      background1 = mkHexColorOption "base01";
+      surface0 = mkHexColorOption "base02";
     };
 
     settings = {
@@ -144,7 +152,7 @@ in
         type = types.bool;
         default = config.stylix.enable or false;
         description = ''
-          If enabled, uses the stylix color scheme to style the bar.
+          If enabled, uses the stylix color scheme as default for 'theme.colors'.
         '';
       };
     };
@@ -180,45 +188,48 @@ in
       "mithril-shell/settings.json".text = builtins.toJSON cfg.settings;
     };
 
-    services.mithril-shell.finalPackage =
-      let
-        generateThemeScss = colors: ''
-          \$primary: #${colors.primary};
-          \$text: #${colors.text};
-          \$background0: #${colors.background0};
-          \$background1: #${colors.background1};
-          \$surface0: #${colors.surface0};
-        '';
-
-        colors =
-          if cfg.integrations.stylix.enable && config.stylix.enable then
-            let
-              stylixColors = config.lib.stylix.colors;
-            in
-            {
-              primary = stylixColors.base0C;
-              text = stylixColors.base05;
-              background0 = stylixColors.base00;
-              background1 = stylixColors.base01;
-              surface0 = stylixColors.base02;
-            }
-          else
-            cfg.theme.colors;
-
-        agsConfig = pkgs.stdenvNoCC.mkDerivation {
-          name = "ags-config";
-          src = ../ags;
-          allowSubstitutes = false;
-          buildPhase = "true";
-          installPhase = ''
-            mkdir -p $out
-            cp -r . $out
-            echo "${generateThemeScss colors}" > $out/theme.scss
-          '';
+    services.mithril-shell = {
+      theme.colors =
+        let
+          colors =
+            if cfg.integrations.stylix.enable && config.stylix.enable then
+              config.lib.stylix.colors
+            else
+              defaultColors;
+        in
+        {
+          primary = lib.mkOptionDefault colors.base0C;
+          text = lib.mkOptionDefault colors.base05;
+          background0 = lib.mkOptionDefault colors.base00;
+          background1 = lib.mkOptionDefault colors.base01;
+          surface0 = lib.mkOptionDefault colors.base02;
         };
-      in
-      cfg.package.override {
-        inherit agsConfig;
-      };
+
+      finalPackage =
+        let
+          generateThemeScss = colors: ''
+            \$primary: #${colors.primary};
+            \$text: #${colors.text};
+            \$background0: #${colors.background0};
+            \$background1: #${colors.background1};
+            \$surface0: #${colors.surface0};
+          '';
+
+          agsConfig = pkgs.stdenvNoCC.mkDerivation {
+            name = "ags-config";
+            src = ../ags;
+            allowSubstitutes = false;
+            buildPhase = "true";
+            installPhase = ''
+              mkdir -p $out
+              cp -r . $out
+              echo "${generateThemeScss cfg.theme.colors}" > $out/theme.scss
+            '';
+          };
+        in
+        cfg.package.override {
+          inherit agsConfig;
+        };
+    };
   };
 }
