@@ -200,11 +200,6 @@ window.darkened {
   margin-left: 0.5em;
   margin-bottom: 0.5em;
 
-  label {
-    font-weight: bold;
-    font-size: 14px;
-  }
-
   .button-row {
     @include space-between-x(3em);
 
@@ -228,6 +223,29 @@ window.darkened {
 
       * {
         color: $background1;
+      }
+    }
+  }
+
+  .power-menu {
+    border-radius: 15px;
+    background-color: $background1;
+
+    .entry {
+      @include rounded-full;
+      padding: 0.625em;
+      padding-left: 1.3em;
+
+      &:hover {
+        background-color: hover-color($surface0);
+      }
+
+      &:active {
+        background-color: $primary;
+
+        * {
+          color: $background1;
+        }
       }
     }
   }
@@ -271,6 +289,11 @@ window.darkened {
   }
 
   .toggle-buttons {
+    label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
     .toggle-button {
       border-top-left-radius: 9999px;
       border-bottom-left-radius: 9999px;
