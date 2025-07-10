@@ -38,7 +38,6 @@ export const PopupWindow = (props: {
   windowStyle?: string;
   windowLayer?: WindowProps["layer"];
   exclusivity?: WindowProps["exclusivity"];
-  setup?: (self: PopupWindow) => void;
 }) => {
   const clickoff = props.clickoff ?? true;
 
@@ -57,7 +56,6 @@ export const PopupWindow = (props: {
     keymode: "on-demand",
     setup: (self) => {
       self.keybind("Escape", () => App.closeWindow("quicksettings"));
-      props.setup?.(self);
     },
     child: Widget.Box({
       children: conditionalChildren([

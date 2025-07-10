@@ -8,7 +8,6 @@ import { PowerMenu } from "./power-menu";
 
 const battery = await Service.import("battery");
 const hyprland = await Service.import("hyprland");
-const powerMenuReveal = Variable(false);
 
 /** Constructor for the top buttons in the quicksettings menu. */
 const Button = (props: {
@@ -42,6 +41,7 @@ const Button = (props: {
 export const Quicksettings = () => {
   // Used to take a screenshot without including the quicksettings menu.
   const opacity = Variable(1.0);
+  const revealPowerMenu = Variable(false);
 
   const top_button_battery = Button({
     icon: battery.bind("icon_name"),
@@ -98,12 +98,12 @@ export const Quicksettings = () => {
     Button({
       icon: "system-shutdown-symbolic",
       async onClick() {
-        powerMenuReveal.value = !powerMenuReveal.value;
+        revealPowerMenu.value = !revealPowerMenu.value;
       },
     }),
   ];
 
-  return PopupWindow({
+  const window = PopupWindow({
     name: "quicksettings",
     location: "top-right",
     child: Widget.Box({
@@ -128,21 +128,22 @@ export const Quicksettings = () => {
           }),
         }),
 
-        PowerMenu({ reveal: powerMenuReveal }),
+        PowerMenu({ reveal: revealPowerMenu.bind() }),
 
         Sliders(),
 
         Toggles(),
       ],
     }),
-    setup(self) {
-      self.hook(
-        App,
-        () => {
-          powerMenuReveal.value = false;
-        },
-        "window-toggled",
-      );
-    },
   });
+
+  window.hook(
+    App,
+    () => {
+      revealPowerMenu.value = false;
+    },
+    "window-toggled",
+  );
+
+  return window;
 };

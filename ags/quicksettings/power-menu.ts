@@ -1,6 +1,6 @@
 import type Gtk from "gi://Gtk?version=3.0";
 import { config } from "lib/settings";
-import { Variable } from "types/variable";
+import type { Binding } from "types/service.js";
 import { PopupWindow, showModal } from "window";
 
 /**
@@ -10,7 +10,7 @@ import { PopupWindow, showModal } from "window";
  */
 
 export const PowerMenu = (params: {
-  reveal: Variable<boolean>;
+  reveal?: Binding<any, any, boolean>;
 }) => {
   const entries = config.powerMenuEntries.map(({ label, command, confirmation }) =>
     Widget.Button({
@@ -47,7 +47,7 @@ export const PowerMenu = (params: {
     hexpand: false,
     transition: "slide_down",
     transitionDuration: 150,
-    revealChild: params.reveal.bind(),
+    revealChild: params.reveal,
     child: Widget.Box({
       className: "power-menu",
       hexpand: true,
