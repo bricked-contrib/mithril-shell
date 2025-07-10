@@ -110,6 +110,50 @@ in
         '';
       };
 
+      powerMenuEntries = mkOption {
+        type = types.listOf (types.submodule {
+          options = {
+            label = mkOption {
+              type = types.str;
+              example = "Power Off";
+              description = ''
+                The name of the power menu entry.
+              '';
+            };
+            command = mkOption {
+              type = types.str;
+              example = "shutdown now";
+              description = ''
+                The command to run when selecting the option.
+              '';
+            };
+            confirmation = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "Are you sure you want to power off the computer?";
+              description = ''
+                An optional confirmation prompt to show before running the command.
+              '';
+            };
+          };
+        });
+        description = ''
+          List of entries to show in the power menu.
+        '';
+        default = [
+          {
+            label = "Restart";
+            command = "reboot";
+            confirmation = "Are you sure you want to restart the computer?";
+          }
+          {
+            label = "Power Off";
+            command = "shutdown now";
+            confirmation = "Are you sure you want to power off the computer?";
+          }
+        ];
+      };
+
       minWorkspaces = mkOption {
         type = types.int;
         default = 3;

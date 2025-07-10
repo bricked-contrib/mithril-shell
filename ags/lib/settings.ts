@@ -26,6 +26,18 @@ export let config = {
     },
   },
   lockCommand: opt<string | null>(null),
+  powerMenuEntries: opt<Array<{ label: string; command: string; confirmation?: string }>>([
+    {
+      label: "Restart",
+      command: "reboot",
+      confirmation: "Are you sure you want to restart the computer?",
+    },
+    {
+      label: "Power Off",
+      command: "shutdown now",
+      confirmation: "Are you sure you want to power off the computer?",
+    },
+  ]),
   minWorkspaces: opt<number>(3),
   popups: {
     volumePopup: {

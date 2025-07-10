@@ -1,4 +1,5 @@
 import type Gtk from "gi://Gtk?version=3.0";
+import { config } from "lib/settings";
 import { Variable } from "types/variable";
 import { PopupWindow, showModal } from "window";
 
@@ -7,9 +8,41 @@ import { PopupWindow, showModal } from "window";
  *
  * @param reveal - Variable that stores the reveal state of the power menu.
  */
+
 export const PowerMenu = (params: {
   reveal: Variable<boolean>;
 }) => {
+  const entries = config.powerMenuEntries.map(({ label, command, confirmation }) =>
+    Widget.Button({
+      className: "entry",
+      hexpand: true,
+      child: Widget.Box({
+        children: [
+          Widget.Label({
+            label: `${label}...`,
+          }),
+        ],
+      }),
+      async onClicked() {
+        App.closeWindow("quicksettings");
+
+        const confirmed = confirmation
+          ? await showModal({
+              title: label,
+              description: confirmation,
+              noOption: "Cancel",
+              yesOption: label,
+              emphasize: "no",
+            })
+          : true;
+
+        if (confirmed) {
+          await Utils.execAsync(command);
+        }
+      },
+    }),
+  );
+
   return Widget.Revealer({
     hexpand: false,
     transition: "slide_down",
@@ -37,86 +70,7 @@ export const PowerMenu = (params: {
         Widget.Box({
           className: "entries",
           vertical: true,
-          children: [
-            Widget.Button({
-              className: "entry",
-              hexpand: true,
-              child: Widget.Box({
-                children: [
-                  Widget.Label({
-                    label: "Restart...",
-                  }),
-                ],
-              }),
-              async onClicked() {
-                App.closeWindow("quicksettings");
-
-                const shutdown = await showModal({
-                  title: "Restart",
-                  description: "Are you sure you want to restart the computer?",
-                  noOption: "Cancel",
-                  yesOption: "Restart",
-                  emphasize: "no",
-                });
-
-                if (shutdown) {
-                  await Utils.execAsync("reboot");
-                }
-              },
-            }),
-            Widget.Button({
-              className: "entry",
-              hexpand: true,
-              child: Widget.Box({
-                children: [
-                  Widget.Label({
-                    label: "Power Off...",
-                  }),
-                ],
-              }),
-              async onClicked() {
-                App.closeWindow("quicksettings");
-
-                const shutdown = await showModal({
-                  title: "Power Off",
-                  description: "Are you sure you want to power off the computer?",
-                  noOption: "Cancel",
-                  yesOption: "Power Off",
-                  emphasize: "no",
-                });
-
-                if (shutdown) {
-                  await Utils.execAsync("shutdown now");
-                }
-              },
-            }),
-            Widget.Button({
-              className: "entry",
-              hexpand: true,
-              child: Widget.Box({
-                children: [
-                  Widget.Label({
-                    label: "Log Out...",
-                  }),
-                ],
-              }),
-              async onClicked() {
-                App.closeWindow("quicksettings");
-
-                const shutdown = await showModal({
-                  title: "Log Out",
-                  description: "Are you sure you want log out of this session?",
-                  noOption: "Cancel",
-                  yesOption: "Log Out",
-                  emphasize: "no",
-                });
-
-                if (shutdown) {
-                  await Utils.execAsync("uwsm stop");
-                }
-              },
-            }),
-          ],
+          children: entries,
         }),
       ],
     }),
