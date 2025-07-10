@@ -228,23 +228,42 @@ window.darkened {
   }
 
   .power-menu {
-    border-radius: 15px;
-    background-color: $background1;
+    @include space-between-y(0.625em);
 
-    .entry {
-      @include rounded-full;
-      padding: 0.625em;
-      padding-left: 1.3em;
+    margin-top: 1.5em;
+    padding: 0.625em;
+    border-radius: 25px;
+    background-color: hover-color($background1);
 
-      &:hover {
+    .title {
+      .icon {
+        @include rounded-full;
+        padding: 0.625em;
         background-color: hover-color($surface0);
+        margin-right: 0.625em;
       }
 
-      &:active {
-        background-color: $primary;
+      label {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+    }
 
-        * {
-          color: $background1;
+    .entries {
+      .entry {
+        @include rounded-full;
+        padding: 0.625em;
+
+        &:hover {
+          background-color: hover-color($surface0);
+        }
+
+        &:active {
+          background-color: $primary;
+
+          * {
+            color: $background1;
+          }
         }
       }
     }
