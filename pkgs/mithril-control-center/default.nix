@@ -7,11 +7,13 @@ gnome-control-center.overrideAttrs (old: {
 
   patches = old.patches ++ (readPatches ./.);
 
-  postFixup = ''
+  preFixup = ''
     for i in $out/share/applications/*; do
-      substituteInPlace $i --replace "Exec=$out/bin/gnome-control-center" "Exec=$out/bin/mithril-control-center"
+      substituteInPlace $i --replace-warn "Exec=gnome-control-center" "Exec=mithril-control-center"
     done
     mv $out/bin/gnome-control-center $out/bin/mithril-control-center
+
+    ${old.preFixup}
   '';
 
   doCheck = false;
