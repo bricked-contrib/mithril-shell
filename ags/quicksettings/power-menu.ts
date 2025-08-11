@@ -8,7 +8,6 @@ import { PopupWindow, showModal } from "window";
  *
  * @param reveal - Variable that stores the reveal state of the power menu.
  */
-
 export const PowerMenu = (params: {
   reveal?: Binding<any, any, boolean>;
 }) => {

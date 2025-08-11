@@ -230,7 +230,7 @@ window.darkened {
   .power-menu {
     @include space-between-y(0.625em);
 
-    margin-top: 1.5em;
+    margin-top: 1.25em;
     padding: 0.625em;
     border-radius: 25px;
     background-color: hover-color($background1);
@@ -244,7 +244,7 @@ window.darkened {
       }
 
       label {
-        font-size: 1.5em;
+        font-size: 1.25em;
         font-weight: bold;
       }
     }
