@@ -2,9 +2,9 @@ import { config } from "lib/settings";
 import type { Icon } from "lib/types";
 import type { Binding } from "types/service";
 import { PopupWindow, showModal } from "window";
+import { PowerMenu } from "./power-menu";
 import { Sliders } from "./sliders";
 import { Toggles } from "./toggles";
-import { PowerMenu } from "./power-menu";
 
 const battery = await Service.import("battery");
 const hyprland = await Service.import("hyprland");
