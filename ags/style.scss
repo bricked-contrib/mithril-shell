@@ -200,11 +200,6 @@ window.darkened {
   margin-left: 0.5em;
   margin-bottom: 0.5em;
 
-  label {
-    font-weight: bold;
-    font-size: 14px;
-  }
-
   .button-row {
     @include space-between-x(3em);
 
@@ -228,6 +223,48 @@ window.darkened {
 
       * {
         color: $background1;
+      }
+    }
+  }
+
+  .power-menu {
+    @include space-between-y(0.625em);
+
+    margin-top: 1.25em;
+    padding: 0.625em;
+    border-radius: 25px;
+    background-color: hover-color($background1);
+
+    .title {
+      .icon {
+        @include rounded-full;
+        padding: 0.625em;
+        background-color: hover-color($surface0);
+        margin-right: 0.625em;
+      }
+
+      label {
+        font-size: 1.25em;
+        font-weight: bold;
+      }
+    }
+
+    .entries {
+      .entry {
+        @include rounded-full;
+        padding: 0.625em;
+
+        &:hover {
+          background-color: hover-color($surface0);
+        }
+
+        &:active {
+          background-color: $primary;
+
+          * {
+            color: $background1;
+          }
+        }
       }
     }
   }
@@ -271,6 +308,11 @@ window.darkened {
   }
 
   .toggle-buttons {
+    label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
     .toggle-button {
       border-top-left-radius: 9999px;
       border-bottom-left-radius: 9999px;

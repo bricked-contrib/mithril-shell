@@ -2,6 +2,7 @@ import { config } from "lib/settings";
 import type { Icon } from "lib/types";
 import type { Binding } from "types/service";
 import { PopupWindow, showModal } from "window";
+import { PowerMenu } from "./power-menu";
 import { Sliders } from "./sliders";
 import { Toggles } from "./toggles";
 
@@ -40,6 +41,7 @@ const Button = (props: {
 export const Quicksettings = () => {
   // Used to take a screenshot without including the quicksettings menu.
   const opacity = Variable(1.0);
+  const revealPowerMenu = Variable(false);
 
   const top_button_battery = Button({
     icon: battery.bind("icon_name"),
@@ -96,24 +98,12 @@ export const Quicksettings = () => {
     Button({
       icon: "system-shutdown-symbolic",
       async onClick() {
-        App.closeWindow("quicksettings");
-
-        const shutdown = await showModal({
-          title: "Power Off",
-          description: "Are you sure you want to power off the computer?",
-          noOption: "Cancel",
-          yesOption: "Power Off",
-          emphasize: "no",
-        });
-
-        if (shutdown) {
-          await Utils.execAsync("shutdown now");
-        }
+        revealPowerMenu.value = !revealPowerMenu.value;
       },
     }),
   ];
 
-  return PopupWindow({
+  const window = PopupWindow({
     name: "quicksettings",
     location: "top-right",
     child: Widget.Box({
@@ -138,10 +128,22 @@ export const Quicksettings = () => {
           }),
         }),
 
+        PowerMenu({ reveal: revealPowerMenu.bind() }),
+
         Sliders(),
 
         Toggles(),
       ],
     }),
   });
+
+  window.hook(
+    App,
+    () => {
+      revealPowerMenu.value = false;
+    },
+    "window-toggled",
+  );
+
+  return window;
 };
