@@ -7,7 +7,11 @@ inputs:
 }:
 let
   inherit (inputs) self;
-  inherit (pkgs.hostPlatform) system;
+  system =
+    if builtins.hasAttr "hostPlatform" pkgs.stdenv then
+      pkgs.stdenv.hostPlatform.system
+    else
+      pkgs.hostPlatform;
 
   cfg = config.programs.mithril-control-center;
 
