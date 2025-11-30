@@ -40,6 +40,11 @@ or using your pre-existing flake, add the following line to your `flake.nix`'s i
 mithril-shell.url = "github:andreashgk/mithril-shell";
 ```
 
+::: warning
+Starting with recent versions of nixpkgs you may encounter an error launching mithril-shell when
+overriding its `nixpkgs` input. To fix this be sure to not override the input for mithril-shell.
+:::
+
 Add the `mithril-shell.homeManagerModules.default` module to the imports if your home configuration.
 You can then set the following options:
 ```nix
